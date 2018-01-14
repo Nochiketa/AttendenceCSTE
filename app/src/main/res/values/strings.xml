@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">Attendence CSTE</string>
+    <string name="student_list">Student List</string>
+    <string name="ok_label">OK</string>
+    <string name="dismiss_label">Dismiss</string>
+    <string name="clear_all_label">Clear All</string>
+    <string name="Student_id"><b>Student Id:\n</b> </string>
+    <string-array name="student_id">
+        <item>ASH1501001M</item>
+        <item>ASH1501002M</item>
+        <item>ASH1501003M</item>
+        <item>ASH1501004M</item>
+        <item>ASH1501005M</item>
+        <item>BKH1501006F</item>
+        <item>ASH1501007M</item>
+        <item>ASH1501008M</item>
+        <item>ASH1501009M</item>
+        <item>BKH15010010F</item>
+        <item>ASH15010011M</item>
+        <item>ASH15010012M</item>
+        <item>ASH15010013M</item>
+        <item>ASH15010014M</item>
+        <item>BKH15010015F</item>
+        <item>BKH15010016F</item>
+        <item>ASH15010017M</item>
+        <item>ASH15010018M</item>
+        <item>ASH15010019M</item>
+        <item>ASH15010020M</item>
+        <item>BKH15010021F</item>
+        <item>ASH15010022M</item>
+        <item>BKH15010023F</item>
+        <item>ASH15010024M</item>
+        <item>ASH15010025M</item>
+        <item>ASH15010026M</item>
+        <item>ASH15010027M</item>
+        <item>BKH15010028M</item>
+        <item>ASH15010029M</item>
+        <item>ASH15010030M</item>
+        <item>BKH15010031F</item>
+        <item>ASH15010032M</item>
+        <item>ASH15010033M</item>
+        <item>ASH15010034M</item>
+        <item>ASH15010035M</item>
+        <item>BKH15010036F</item>
+        <item>BKH15010038F</item>
+        <item>ASH15010039M</item>
+        <item>ASH15010040M</item>
+        <item>BKH15010041F</item>
+        <item>BKH15010042F</item>
+        <item>ASH15010043M</item>
+        <item>ASH15010044M</item>
+        <item>ASH15010045M</item>
+        <item>ASH15010046M</item>
+        <item>BKH15010047F</item>
+        <item>ASH15010048M</item>
+        <item>ASH15010049M</item>
+        <item>BKH15010050F</item>
+        <item>ASH15010051M</item>
+        <item>ASH15010052M</item>
+        <item>ASH15010053M</item>
+        <item>ASH15010054M</item>
+        <item>ASH15010055M</item>
+        <item>ASH15010056M</item>
+        <item>BKH15010057F</item>
+        <item>ASH15010058M</item>
+        <item>ASH15010059M</item>
+        <item>ASH15010060M</item>
+        <item>BKH15010061F</item>
+        <item>BKH15010062F</item>
+        <item>Re-add ASH15010015M</item>
+        <item>Re-add ASH15010043M</item>
+
+
+
+    </string-array>
+</resources>
