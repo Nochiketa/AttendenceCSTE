@@ -53,13 +53,18 @@ public class MainActivity extends AppCompatActivity {
                             {
                                 mUserItems.add(position);
                             }
+                            else if(mUserItems.contains(position))
+                            {
+                                if(isChecked)
+                                {
+                                    mUserItems.remove(position);
+                                }
+                            }
                         }
-                        else if(mUserItems.contains(position))
-                        {
-                            mUserItems.remove(position);
-                        }
+
                     }
                 });
+
                 mBuilder.setCancelable(false);
                 mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
                     @Override
@@ -68,14 +73,15 @@ public class MainActivity extends AppCompatActivity {
                         for(int i = 0;i<mUserItems.size(); i++)
                         {
                             item = item + listItems[mUserItems.get(i)];
-                            if(i!=mUserItems.size() -1)
+                            if(i != mUserItems.size() -1)
                             {
-                                item = item + "\n ";
+                                item = item + ", ";
                             }
                         }
                         mItemSelected.setText("Present: \n" + item);
 
                         long rowId = myDatabaseHelper.insertData(item);
+                       // myDatabaseHelper.insertData(item);
                         if(rowId == -1)
                         {
                             Toast.makeText(getApplicationContext(), "Not inserted", Toast.LENGTH_LONG).show();
@@ -109,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 mDialog.show();
             }
         });
+
         displayAllDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 while (cursor.moveToNext())
                 {
                     //stringBuffer.append("ID: "+ cursor.getString(0)+"\n");
-                    stringBuffer.append(getString(R.string.Student_id)+ cursor.getString(0)+"\n");
+                    stringBuffer.append(getString(R.string.Student_id)+ cursor.getString(1)+"\n\n");
                 }
                 showData("Attended Students: ", stringBuffer.toString());
             }

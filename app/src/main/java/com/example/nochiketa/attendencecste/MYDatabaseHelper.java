@@ -14,11 +14,12 @@ import android.widget.Toast;
 public class MYDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "student.db";
-    private static final String TABLE_NAME = "student_all_id";
+    private static final String TABLE_NAME = "studentpresent";
     private static final String ID = "_id";
-    private static final String TEXT_PRESENT_STUDENTS = "present_students";
-    private static final int VERSION_NUMBER = 1;
-    private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+"("+ID+"INTEGER PRIMARY KEY AUTO INCREMENT, "+TEXT_PRESENT_STUDENTS+" VARCHAR(1000));";
+    private static final String PRESENT_STUDENTS = "present_students";
+    private static final int VERSION_NUMBER = 2;
+    private static final String CREATE_TABLE = "CREATE TABLE "  +TABLE_NAME + "( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + PRESENT_STUDENTS + " VARCHAR(255));";
+    //private static final String CREATE_TABLE = "CREATE TABLE studentpresent(_id INTEGER PRIMARY KEY AUTO INCREMENT, present_students VARCHAR(255));";
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
     private static final String SELECT_ALL = "SELECT * FROM " + TABLE_NAME;
 
@@ -61,7 +62,7 @@ public class MYDatabaseHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(TEXT_PRESENT_STUDENTS, present_students);
+        contentValues.put(PRESENT_STUDENTS, present_students);
         long rowid = sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
         return rowid;
     }
