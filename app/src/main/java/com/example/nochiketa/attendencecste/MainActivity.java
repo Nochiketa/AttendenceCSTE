@@ -74,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
                             mUserItems.remove(position);
                             i--;
                         }
+                        for(int i = 0; i<checkItems.length; i++)
+                        {
+                             checkItems[i] = false;
+                             mUserItems.clear();
+                            //mItemSelected.setText("");
+                        }
                     }
                 });
 
@@ -154,11 +160,18 @@ public class MainActivity extends AppCompatActivity {
                 showData("Attended Students: ", stringBuffer.toString());
             }
         });
+    }
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
+
+    public void showData(String title, String data)
+    {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setTitle(title);
+        mBuilder.setMessage(data);
+        mBuilder.setCancelable(true);
+        mBuilder.setPositiveButton("Delete Data", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(DialogInterface dialogInterface, int i) {
                 View v = (LayoutInflater.from(MainActivity.this)).inflate(R.layout.user_input, null);
                 AlertDialog.Builder dBuilder = new AlertDialog.Builder(MainActivity.this);
                 dBuilder.setView(v);
@@ -180,17 +193,18 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+                dBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
                 AlertDialog dDialog = dBuilder.create();
                 dDialog.show();
             }
         });
-    }
-    public void showData(String title, String data)
-    {
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
-        mBuilder.setTitle(title);
-        mBuilder.setMessage(data);
-        mBuilder.setCancelable(true);
-        mBuilder.show();
+
+        AlertDialog nBuilder = mBuilder.create();
+        nBuilder.show();
     }
 }

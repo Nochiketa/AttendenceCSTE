@@ -6,13 +6,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:text="Enter Class no: " />
 
     <android.widget.EditText
         android:id="@+id/userinput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"/>
+        android:textSize="20dp"/>
 
 </LinearLayout>
