@@ -73,4 +73,10 @@ public class MYDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = sqLiteDatabase.rawQuery(SELECT_ALL, null);
         return  cursor;
     }
+
+    public Integer deleteData(String id)
+    {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        return sqLiteDatabase.delete(TABLE_NAME, ID + " = ? ", new String[]{id});
+    }
 }

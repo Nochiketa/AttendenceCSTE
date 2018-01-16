@@ -1,13 +1,18 @@
 package com.example.nochiketa.attendencecste;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,12 +21,13 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    Button mOrder, displayAllDataButton;
+    Button mOrder, displayAllDataButton, deleteButton;
     TextView mItemSelected;
     String[] listItems;
     boolean[] checkItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
     MYDatabaseHelper myDatabaseHelper;
+    int i=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         mOrder = (Button)findViewById(R.id.btn1);
         displayAllDataButton = (Button)findViewById(R.id.btn2);
+        deleteButton = (Button)findViewById(R.id.btn3);
 
         mItemSelected = (TextView)findViewById(R.id.TV1);
         myDatabaseHelper = new MYDatabaseHelper(this);
@@ -52,20 +59,26 @@ public class MainActivity extends AppCompatActivity {
                             if(!mUserItems.contains(position))
                             {
                                 mUserItems.add(position);
+                                i++;
                             }
-                            else if(mUserItems.contains(position))
+                            /*else if(mUserItems.contains(position))
                             {
                                 if(isChecked)
                                 {
                                     mUserItems.remove(position);
                                 }
-                            }
+                            }*/
                         }
-
+                        else if(mUserItems.contains(position))
+                        {
+                            mUserItems.remove(position);
+                            i--;
+                        }
                     }
                 });
 
-                mBuilder.setCancelable(false);
+                mBuilder.setCancelable(true);
+
                 mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
@@ -78,17 +91,24 @@ public class MainActivity extends AppCompatActivity {
                                 item = item + ", ";
                             }
                         }
-                        mItemSelected.setText("Present: \n" + item);
+                        mItemSelected.setText("Present: \n" + item +"\n Total Students: " + i);
 
-                        long rowId = myDatabaseHelper.insertData(item);
-                       // myDatabaseHelper.insertData(item);
-                        if(rowId == -1)
+                        if(!item.equals(""))
                         {
-                            Toast.makeText(getApplicationContext(), "Not inserted", Toast.LENGTH_LONG).show();
+                            long rowId = myDatabaseHelper.insertData(item);
+                            // myDatabaseHelper.insertData(item);
+                            if(rowId == -1)
+                            {
+                                Toast.makeText(getApplicationContext(), "Not inserted", Toast.LENGTH_LONG).show();
+                            }
+                            else
+                            {
+                                Toast.makeText(getApplicationContext(), "Row "+rowId+" is successfully inserted", Toast.LENGTH_LONG).show();
+                            }
                         }
                         else
                         {
-                            Toast.makeText(getApplicationContext(), "Row "+rowId+" is successfully inserted", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "No students selected...", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -122,16 +142,46 @@ public class MainActivity extends AppCompatActivity {
                 Cursor cursor = myDatabaseHelper.displayAllData();
                 if(cursor.getCount() == 0)
                 {
-                    showData("Error", "No Data Found");
+                    showData("Sorry!", "No Data Found");
                     return;
                 }
                 StringBuffer stringBuffer = new StringBuffer();
                 while (cursor.moveToNext())
                 {
-                    //stringBuffer.append("ID: "+ cursor.getString(0)+"\n");
+                    stringBuffer.append("Class no: "+ cursor.getString(0)+"\n");
                     stringBuffer.append(getString(R.string.Student_id)+ cursor.getString(1)+"\n\n");
                 }
                 showData("Attended Students: ", stringBuffer.toString());
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                View v = (LayoutInflater.from(MainActivity.this)).inflate(R.layout.user_input, null);
+                AlertDialog.Builder dBuilder = new AlertDialog.Builder(MainActivity.this);
+                dBuilder.setView(v);
+                final EditText userInput = (EditText) v.findViewById(R.id.userinput);
+
+                dBuilder.setCancelable(true);
+                dBuilder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String delete =  userInput.getText().toString();
+                        int id = myDatabaseHelper.deleteData(delete);
+                        if(id > 0)
+                        {
+                            Toast.makeText(getApplicationContext(), "Data has been deleted...", Toast.LENGTH_LONG).show();
+                        }
+                        else if(id<0)
+                        {
+                            Toast.makeText(getApplicationContext(), "Data not Deleted", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                AlertDialog dDialog = dBuilder.create();
+                dDialog.show();
             }
         });
     }
