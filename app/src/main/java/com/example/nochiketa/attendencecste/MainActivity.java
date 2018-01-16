@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
         mOrder = (Button)findViewById(R.id.btn1);
         displayAllDataButton = (Button)findViewById(R.id.btn2);
-        deleteButton = (Button)findViewById(R.id.btn3);
 
         mItemSelected = (TextView)findViewById(R.id.TV1);
         myDatabaseHelper = new MYDatabaseHelper(this);
@@ -74,12 +73,6 @@ public class MainActivity extends AppCompatActivity {
                             mUserItems.remove(position);
                             i--;
                         }
-                        for(int i = 0; i<checkItems.length; i++)
-                        {
-                             checkItems[i] = false;
-                             mUserItems.clear();
-                            //mItemSelected.setText("");
-                        }
                     }
                 });
 
@@ -116,7 +109,15 @@ public class MainActivity extends AppCompatActivity {
                         {
                             Toast.makeText(getApplicationContext(), "No students selected...", Toast.LENGTH_LONG).show();
                         }
+
+                        for(int i = 0; i<checkItems.length; i++)
+                        {
+                            checkItems[i] = false;
+                            mUserItems.clear();
+                            //mItemSelected.setText("");
+                        }
                     }
+
                 });
 
                 mBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener() {
