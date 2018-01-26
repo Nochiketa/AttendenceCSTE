@@ -21,7 +21,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    Button mOrder, displayAllDataButton, deleteButton;
+    Button mOrder, displayAllDataButton;
     TextView mItemSelected;
     String[] listItems;
     boolean[] checkItems;
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 mBuilder.setMultiChoiceItems(listItems, checkItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+
                         if(isChecked)
                         {
                             if(!mUserItems.contains(position))
@@ -60,29 +61,22 @@ public class MainActivity extends AppCompatActivity {
                                 mUserItems.add(position);
                                 i++;
                             }
-                            /*else if(mUserItems.contains(position))
-                            {
-                                if(isChecked)
-                                {
-                                    mUserItems.remove(position);
-                                }
-                            }*/
                         }
                         else if(mUserItems.contains(position))
                         {
-                            mUserItems.remove(position);
-                            i--;
+                                mUserItems.remove(position);
+                                i--;
                         }
                     }
                 });
 
-                mBuilder.setCancelable(true);
+                mBuilder.setCancelable(false);
 
                 mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         String item = "";
-                        for(int i = 0;i<mUserItems.size(); i++)
+                        for(int i = 0; i<mUserItems.size(); i++)
                         {
                             item = item + listItems[mUserItems.get(i)];
                             if(i != mUserItems.size() -1)
@@ -90,12 +84,14 @@ public class MainActivity extends AppCompatActivity {
                                 item = item + ", ";
                             }
                         }
-                        mItemSelected.setText("Present: \n" + item +"\n Total Students: " + i);
+
+                        mItemSelected.setText("Present: \n" + item +"\n\n Total Students: " + i);
+                        i=0;
 
                         if(!item.equals(""))
                         {
                             long rowId = myDatabaseHelper.insertData(item);
-                            // myDatabaseHelper.insertData(item);
+
                             if(rowId == -1)
                             {
                                 Toast.makeText(getApplicationContext(), "Not inserted", Toast.LENGTH_LONG).show();
@@ -117,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
                             //mItemSelected.setText("");
                         }
                     }
-
                 });
 
                 mBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener() {

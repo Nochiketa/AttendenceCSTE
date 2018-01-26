@@ -19,6 +19,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
             android:background="#008000"
             android:text="CSTE10"
             android:textColor="#ffffff" />
