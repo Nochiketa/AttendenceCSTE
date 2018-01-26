@@ -46,8 +46,18 @@
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:hint="Students id"
-            android:textColor="#000000"
+            android:textStyle="italic"
+            android:textColor="@color/colorPrimary"
             android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below = "@id/TV1"
+            android:id="@+id/TV2"
+            android:text="Date"
+            android:gravity="center"
+            android:layout_marginTop="20dp"/>
 
     </LinearLayout>
 

@@ -4,6 +4,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.icu.text.DateFormat;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,16 +22,18 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     Button mOrder, displayAllDataButton;
-    TextView mItemSelected;
+    TextView mItemSelected, textDate;
     String[] listItems;
     boolean[] checkItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
     MYDatabaseHelper myDatabaseHelper;
     int i=0;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         mOrder = (Button)findViewById(R.id.btn1);
         displayAllDataButton = (Button)findViewById(R.id.btn2);
+        textDate = (TextView)findViewById(R.id.TV2);
 
         mItemSelected = (TextView)findViewById(R.id.TV1);
         myDatabaseHelper = new MYDatabaseHelper(this);
@@ -73,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 mBuilder.setCancelable(false);
 
                 mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         String item = "";
@@ -90,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
                         if(!item.equals(""))
                         {
-                            long rowId = myDatabaseHelper.insertData(item);
+                            String currentDateTimeString = DateFormat.getDateInstance().format(new Date());
+                            long rowId = myDatabaseHelper.insertData(currentDateTimeString, item);
 
                             if(rowId == -1)
                             {
@@ -148,10 +156,12 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 StringBuffer stringBuffer = new StringBuffer();
+
                 while (cursor.moveToNext())
                 {
                     stringBuffer.append("Class no: "+ cursor.getString(0)+"\n");
-                    stringBuffer.append(getString(R.string.Student_id)+ cursor.getString(1)+"\n\n");
+                    stringBuffer.append("Date: " + cursor.getString(1)+"\n");
+                    stringBuffer.append("Student Id: " + cursor.getString(2)+"\n\n");
                 }
                 showData("Attended Students: ", stringBuffer.toString());
             }
