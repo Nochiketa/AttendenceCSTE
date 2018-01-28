@@ -98,33 +98,6 @@ public class MainActivity extends AppCompatActivity {
                         i=0;
 
                         sv = item;
-
-                        /*if(!item.equals(""))
-                        {
-                            String currentDateTimeString = DateFormat.getDateInstance().format(new Date());
-
-                            long rowId = myDatabaseHelper.insertData(currentDateTimeString, item);
-
-                            if(rowId == -1)
-                            {
-                                Toast.makeText(getApplicationContext(), "Not saved", Toast.LENGTH_LONG).show();
-                            }
-                            else
-                            {
-                                Toast.makeText(getApplicationContext(), "Data is Saved", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                        else
-                        {
-                            Toast.makeText(getApplicationContext(), "No students selected...", Toast.LENGTH_LONG).show();
-                        }
-
-                        for(int i = 0; i<checkItems.length; i++)
-                        {
-                            checkItems[i] = false;
-                            mUserItems.clear();
-                            //mItemSelected.setText("");
-                        }*/
                     }
                 });
 
