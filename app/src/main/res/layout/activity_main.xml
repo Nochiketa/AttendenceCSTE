@@ -21,20 +21,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="10dp"
             android:background="#008000"
-            android:text="CSTE10"
-            android:textColor="#ffffff" />
-
-        <Button
-            android:id="@+id/btn2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_below="@id/btn1"
-            android:layout_marginTop="10dp"
-            android:background="#008000"
-            android:text="display present student list"
+            android:text="COUNT"
             android:textColor="#ffffff" />
 
         <TextView
@@ -44,20 +31,35 @@
             android:layout_below="@+id/btn2"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:gravity="center"
+            android:gravity="left"
             android:hint="Students id"
             android:textStyle="italic"
             android:textColor="@color/colorPrimary"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            />
 
-        <TextView
+        <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below = "@id/TV1"
-            android:id="@+id/TV2"
-            android:text="Date"
-            android:gravity="center"
-            android:layout_marginTop="20dp"/>
+            android:layout_below="@+id/TV1"
+            android:text="Save"
+            android:id="@+id/bt3"
+            android:layout_marginTop="20dp"
+            android:background="#008000"
+            android:textColor="#ffffff"/>
+
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_below="@id/bt3"
+            android:layout_marginTop="10dp"
+            android:background="#008000"
+            android:text="display present student list"
+            android:textColor="#ffffff" />
 
     </LinearLayout>
 

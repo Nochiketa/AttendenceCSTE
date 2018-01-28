@@ -38,7 +38,7 @@ public class MYDatabaseHelper extends SQLiteOpenHelper {
 
         try
         {
-            Toast.makeText(context, "Oncreate is called", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "Oncreate is called", Toast.LENGTH_LONG).show();
             sqLiteDatabase.execSQL(CREATE_TABLE);
         }
         catch (Exception i)
@@ -51,7 +51,7 @@ public class MYDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         try
         {
-            Toast.makeText(context, "OnUpgrade is called", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "OnUpgrade is called", Toast.LENGTH_LONG).show();
             sqLiteDatabase.execSQL(DROP_TABLE);
             onCreate(sqLiteDatabase);
         }

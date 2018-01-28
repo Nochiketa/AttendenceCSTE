@@ -4,7 +4,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.icu.text.DateFormat;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
@@ -25,15 +27,15 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    Button mOrder, displayAllDataButton;
-    TextView mItemSelected, textDate;
+    Button mOrder, displayAllDataButton, saveButton;
+    String sv;
+    TextView mItemSelected;
     String[] listItems;
     boolean[] checkItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
     MYDatabaseHelper myDatabaseHelper;
     int i=0;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         mOrder = (Button)findViewById(R.id.btn1);
         displayAllDataButton = (Button)findViewById(R.id.btn2);
-        textDate = (TextView)findViewById(R.id.TV2);
+        saveButton = (Button)findViewById(R.id.bt3);
 
         mItemSelected = (TextView)findViewById(R.id.TV1);
         myDatabaseHelper = new MYDatabaseHelper(this);
@@ -95,18 +97,21 @@ public class MainActivity extends AppCompatActivity {
                         mItemSelected.setText("Present: \n" + item +"\n\n Total Students: " + i);
                         i=0;
 
-                        if(!item.equals(""))
+                        sv = item;
+
+                        /*if(!item.equals(""))
                         {
                             String currentDateTimeString = DateFormat.getDateInstance().format(new Date());
+
                             long rowId = myDatabaseHelper.insertData(currentDateTimeString, item);
 
                             if(rowId == -1)
                             {
-                                Toast.makeText(getApplicationContext(), "Not inserted", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Not saved", Toast.LENGTH_LONG).show();
                             }
                             else
                             {
-                                Toast.makeText(getApplicationContext(), "Row "+rowId+" is successfully inserted", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Data is Saved", Toast.LENGTH_LONG).show();
                             }
                         }
                         else
@@ -119,13 +124,14 @@ public class MainActivity extends AppCompatActivity {
                             checkItems[i] = false;
                             mUserItems.clear();
                             //mItemSelected.setText("");
-                        }
+                        }*/
                     }
                 });
 
                 mBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+
                         dialogInterface.dismiss();
                     }
                 });
@@ -146,6 +152,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!sv.equals(""))
+                {
+                    String currentDateTimeString = DateFormat.getDateInstance().format(new Date());
+
+                    long rowId = myDatabaseHelper.insertData(currentDateTimeString, sv);
+
+                    if(rowId == -1)
+                    {
+                        Toast.makeText(getApplicationContext(), "Not saved", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "Data is Saved", Toast.LENGTH_LONG).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "No students selected...", Toast.LENGTH_LONG).show();
+                }
+
+                for(int i = 0; i<checkItems.length; i++)
+                {
+                    checkItems[i] = false;
+                    mUserItems.clear();
+                    //mItemSelected.setText("");
+                }
+            }
+        });
+
+
         displayAllDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     stringBuffer.append("Class no: "+ cursor.getString(0)+"\n");
                     stringBuffer.append("Date: " + cursor.getString(1)+"\n");
-                    stringBuffer.append("Student Id: " + cursor.getString(2)+"\n\n");
+                    stringBuffer.append("Student Id: \n" + cursor.getString(2)+"\n\n");
                 }
                 showData("Attended Students: ", stringBuffer.toString());
             }
