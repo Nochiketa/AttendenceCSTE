@@ -24,6 +24,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 mBuilder.setCancelable(false);
 
                 mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
+
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         String item = "";
@@ -94,8 +95,14 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
 
-                        mItemSelected.setText("Present: \n" + item +"\n\n Total Students: " + i);
-                        i=0;
+                        if(item.equals(""))
+                        {
+                            mItemSelected.setText("No Students selected");
+                        }
+                        else
+                        {
+                            mItemSelected.setText("Present: \n" + item +"\n\n Total Students: " + i);
+                        }
 
                         sv = item;
                     }
@@ -152,8 +159,9 @@ public class MainActivity extends AppCompatActivity {
                 {
                     checkItems[i] = false;
                     mUserItems.clear();
-                    //mItemSelected.setText("");
+                    mItemSelected.setText("");
                 }
+                i=0;
             }
         });
 
@@ -203,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                         int id = myDatabaseHelper.deleteData(delete);
                         if(id > 0)
                         {
-                            Toast.makeText(getApplicationContext(), "Data has been deleted...", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Class no " +delete+ " has been deleted...", Toast.LENGTH_LONG).show();
                         }
                         else if(id<0)
                         {

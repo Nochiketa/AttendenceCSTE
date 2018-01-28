@@ -26,13 +26,14 @@
 
         <TextView
             android:id="@+id/TV1"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_below="@+id/btn2"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:gravity="left"
-            android:hint="Students id"
+            android:layout_marginLeft="45dp"
+            android:gravity="center"
+            android:hint="Present Students id will be shown here.."
             android:textStyle="italic"
             android:textColor="@color/colorPrimary"
             android:textSize="20dp"
