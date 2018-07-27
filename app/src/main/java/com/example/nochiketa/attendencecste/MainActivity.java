@@ -1,19 +1,14 @@
 package com.example.nochiketa.attendencecste;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,10 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -63,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
 
-                        if(isChecked)
+                        /*if(isChecked)
                         {
                             if(!mUserItems.contains(position))
                             {
@@ -75,6 +67,16 @@ public class MainActivity extends AppCompatActivity {
                         {
                                 mUserItems.remove(position);
                                 i--;
+                        }*/
+                        if(isChecked)
+                        {
+                            mUserItems.add(position);
+                            i++;
+                        }
+                        else if(mUserItems.contains(position))
+                        {
+                            mUserItems.remove(Integer.valueOf(position));
+                            i--;
                         }
                     }
                 });
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 mDialog.show();
             }
         });
+
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,8 +192,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void showData(String title, String data)
-    {
+    public void showData(String title, String data) {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
         mBuilder.setTitle(title);
         mBuilder.setMessage(data);
@@ -207,14 +209,11 @@ public class MainActivity extends AppCompatActivity {
                 dBuilder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String delete =  userInput.getText().toString();
+                        String delete = userInput.getText().toString();
                         int id = myDatabaseHelper.deleteData(delete);
-                        if(id > 0)
-                        {
-                            Toast.makeText(getApplicationContext(), "Class no " +delete+ " has been deleted...", Toast.LENGTH_LONG).show();
-                        }
-                        else if(id<0)
-                        {
+                        if (id > 0) {
+                            Toast.makeText(getApplicationContext(), "Class no " + delete + " has been deleted...", Toast.LENGTH_LONG).show();
+                        } else if (id < 0) {
                             Toast.makeText(getApplicationContext(), "Data not Deleted", Toast.LENGTH_LONG).show();
                         }
                     }
@@ -229,8 +228,99 @@ public class MainActivity extends AppCompatActivity {
                 dDialog.show();
             }
         });
+        AlertDialog kDialog = mBuilder.create();
+        kDialog.show();
+    }
+
+
+
+      /* mBuilder.setNegativeButton("Update Data", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                View v = (LayoutInflater.from(MainActivity.this)).inflate(R.layout.user_input, null);
+
+                AlertDialog.Builder dBuilder = new AlertDialog.Builder(MainActivity.this);
+                dBuilder.setView(v);
+                final EditText userInput = (EditText) v.findViewById(R.id.userinput);
+                dBuilder.setCancelable(true);
+
+                dBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        total = updateData();
+                        String update =  userInput.getText().toString();
+                        myDatabaseHelper.updateData(update, total);
+
+                    }
+                });
+
+                AlertDialog nBuilder = dBuilder.create();
+                nBuilder.show();
+            }
+        });
 
         AlertDialog nBuilder = mBuilder.create();
         nBuilder.show();
-    }
+    }*/
+
+    /*public String updateData()
+    {
+        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+        mBuilder.setTitle(R.string.student_list);
+        mBuilder.setMultiChoiceItems(listItems, checkItems, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+
+                if(isChecked)
+                {
+                    if(!mUserItems.contains(position))
+                    {
+                        mUserItems.add(position);
+                        i++;
+                    }
+                }
+                else if(mUserItems.contains(position))
+                {
+                    mUserItems.remove(position);
+                    i--;
+                }
+            }
+        });
+
+
+        mBuilder.setCancelable(false);
+
+        mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                String upItem = "";
+                for(int i = 0; i<mUserItems.size(); i++)
+                {
+                    upItem = upItem + listItems[mUserItems.get(i)];
+                    if(i != mUserItems.size() -1)
+                    {
+                        upItem = upItem + ", ";
+                    }
+                }
+
+                if(upItem.equals(""))
+                {
+                    mItemSelected.setText("No Students selected");
+                }
+                else
+                {
+                    mItemSelected.setText("Present: \n" + upItem);
+                }
+
+                updatesv = sv+upItem;
+            }
+        });
+
+        AlertDialog jBuilder = mBuilder.create();
+        jBuilder.show();
+
+        return updatesv;
+    }*/
+
 }
